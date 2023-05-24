@@ -1,5 +1,7 @@
 package utakatanet.work.hotelreservation;
 
+import java.time.LocalDate;
+
 public class HotelRoom {
     private int roomNumber;
     private int price;
@@ -23,4 +25,13 @@ public class HotelRoom {
         return isAvailable;
     }
 
+    public static void main(String[] args) {
+        Hotel hotel = new Hotel();
+        HotelRoom room = new HotelRoom(123, 100, true);
+        hotel.addRoom(room);
+
+        boolean isAvailable = hotel.isRoomAvailable(room.getRoomNumber(), LocalDate.now(), LocalDate.now().plusDays(7));
+        System.out.println("Is room available: " + isAvailable);
+    }
 }
+

@@ -1,8 +1,10 @@
 package utakatanet.work.hotelreservation;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import utakatanet.work.hotelreservation.HotelReservation;
+
 public class Hotel {
     private List<HotelReservation> reservations;
     private List<HotelRoom> rooms;
@@ -28,21 +30,38 @@ public class Hotel {
         return rooms;
     }
 
-    public boolean isRoomAvailable(int roomNumber, Date checkInDate, Date checkOutDate) {
+    public boolean isRoomAvailable(int roomNumber, LocalDate checkInDate, LocalDate checkOutDate) {
         for (HotelReservation reservation : reservations) {
             if (reservation.getRoomNumber() == roomNumber) {
-                if ((checkInDate.after(reservation.getCheckInDate()) && checkInDate.before(reservation.getCheckOutDate())) ||
-                        (checkOutDate.after(reservation.getCheckInDate())
-                                && checkOutDate.before(reservation.getCheckOutDate()))) {
+                LocalDate reservationCheckInDate = convertToLocalDate(reservation.getCheckInDate());
+                LocalDate reservationCheckOutDate = convertToLocalDate(reservation.getCheckOutDate());
+
+                if ((checkInDate.isAfter(reservationCheckInDate) && checkInDate.isBefore(reservationCheckOutDate)) ||
+                        (checkOutDate.isAfter(reservationCheckInDate) && checkOutDate.isBefore(reservationCheckOutDate)) ||
+                        (checkInDate.isBefore(reservationCheckInDate) && checkOutDate.isAfter(reservationCheckOutDate))) {
                     return false;
                 }
             }
         }
+
         for (HotelRoom room : rooms) {
             if (room.getRoomNumber() == roomNumber) {
                 return room.isAvailable();
             }
         }
+
         return false;
+    }
+
+    private LocalDate convertToLocalDate(java.util.Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    public static void main(String[] args) {
+        Hotel hotel = new Hotel();
+        List<HotelReservation> reservations = hotel.getReservations();
+        List<HotelRoom> rooms = hotel.getRooms();
+
+        // 以下に必要な処理を追加してください
     }
 }

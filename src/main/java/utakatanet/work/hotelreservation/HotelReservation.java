@@ -1,8 +1,6 @@
 package utakatanet.work.hotelreservation;
 
 import java.util.Date;
-import java.util.List;
-
 public class HotelReservation {
     private String playerName;
     private int roomNumber;
@@ -27,18 +25,11 @@ public class HotelReservation {
     public Date getCheckOutDate() {
         return checkOutDate;
     }
-}
-    public void addReservation() {
-       return addReservation;
-    }
 
-    public void addRoom() {
-       return addRoom;
-    }
-    public List getReservations() {
-       return getReservations;
-    }
-    public Date isRoomAvailable() {
-       return isRoomAvailable;
+    Hotel hotel = new Hotel();
+    HotelReservation reservation = new HotelReservation(playerName, roomNumber, checkInDate, checkOutDate);
+
+    {
+        hotel.addReservation(reservation);
     }
 }
