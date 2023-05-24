@@ -2,6 +2,7 @@ package utakatanet.work.hotelreservation;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import utakatanet.work.hotelreservation.HotelReservation;
 public class Hotel {
     private List<HotelReservation> reservations;
     private List<HotelRoom> rooms;
