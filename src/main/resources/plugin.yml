@@ -1,0 +1,7 @@
+name: HotelReservation
+version: '${project.version}'
+main: utakatanet.work.hotelreservation.HotelReservation
+api-version: 1.19
+LOAD: STARTUP
+author: 蛍
+
